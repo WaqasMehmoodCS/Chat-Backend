@@ -4,10 +4,15 @@ import {
   logoutController,
   registerController,
 } from "../controllers/auth.controller.js";
+
+import { authMiddleware } from "../middleware/auth.middleware.js";
 const authRouter = express.Router();
 
 authRouter.post("/register", registerController);
 authRouter.post("/login", loginController);
-authRouter.post("/logout", logoutController);
+authRouter.get("/logout", logoutController);
+authRouter.get("/checkuser", authMiddleware, () => {
+  console.log(`checking user`);
+});
 
 export default authRouter;

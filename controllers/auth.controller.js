@@ -80,11 +80,11 @@ export const loginController = async (req, res) => {
       res.status(403).json({ message: "Invalid credentials" });
 
     const token = createToken();
-    res
+    return res
       .cookie("login", token, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        // secure: true,
+        secure: process.env.ENV === "Development" ? false : true,
       })
       .status(200)
       .json({ message: "Login Successful" });
@@ -96,5 +96,6 @@ export const loginController = async (req, res) => {
 };
 
 export const logoutController = (req, res) => {
-  res.clearCookie("login").status(200).json({ message: "Logout Successfuly" });
+  return res.clearCookie("login").status(200).json({ message: "Logout Successfuly" });
+  
 };
