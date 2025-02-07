@@ -12,12 +12,15 @@ app.use(
   cors({
     origin: `${process.env.BASE_URL}`,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   })
 );
 
 const port = process.env.PORT;
 
 app.use("/api/auth", authRouter);
+app.options("*", cors()); // Allow preflight requests
 
 app.listen(port, () => {
   console.log(`Server Running on ${port}`);
