@@ -11,8 +11,8 @@ const authRouter = express.Router();
 authRouter.post("/register", registerController);
 authRouter.post("/login", loginController);
 authRouter.get("/logout", logoutController);
-authRouter.get("/checkuser", authMiddleware, () => {
-  console.log(`checking user`);
+authRouter.get("/checkuser", authMiddleware, (req, res) => {
+  return res.status(200).json({ message: "User is authenticated" });
 });
 
 export default authRouter;
